@@ -152,6 +152,27 @@ public class UsuarioAceitacao {
         Assert.assertEquals(resultService.getStatusCode(), 400);
     }
 
+    @Test
+    public void definirRoleComSucesso() throws IOException {
+        UsuarioDTO usuarioDTO = addPessoaPeloJson();
+        Response resultService = usuarioService.definirRoleComSucesso(usuarioDTO.getIdUsuario(), "GESTOR");
+        Assert.assertEquals(resultService.getStatusCode(), 200);
+        usuarioService.deleteUsuario(usuarioDTO.getIdUsuario());
+    }
+
+    @Test
+    public void definirRoleComIdInexistente() {
+        Response resultService = usuarioService.definirRoleComIdInexistente(4353463, "GESTOR");
+        Assert.assertEquals(resultService.getStatusCode(), 400);
+    }
+
+    @Test
+    public void listarPessoasComSucesso() {
+
+        Response resultService = usuarioService.listarPessoasComSucesso();
+        Assert.assertEquals(resultService.getStatusCode(), 200);
+    }
+
     public UsuarioDTO addPessoaPeloJson() throws IOException {
         String json = lerJson("src/test/resources/data/usuario.json");
         UsuarioDTO resultService = usuarioService.cadastroUsuario(json);

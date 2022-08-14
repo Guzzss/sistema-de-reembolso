@@ -239,4 +239,49 @@ public class UsuarioService {
                 .statusCode(400) // Extração do resultado
                 .extract().response();
     }
+
+    public Response definirRoleComSucesso(Integer idUsuario, String role) {
+        String url = baseUrl + "/role?idUsuario=" + idUsuario + "&role=" + role;
+        return given() // Dado
+                .contentType(ContentType.JSON)
+                .header("Authorization", token)
+                .log().all()
+                .when() // Quando
+                .post(url)
+                .then() // Então
+                .log()
+                .all()
+                .statusCode(200) // Extração do resultado
+                .extract().response();
+    }
+
+    public Response definirRoleComIdInexistente(Integer idUsuario, String role) {
+        String url = baseUrl + "/role?idUsuario=" + idUsuario + "&role=" + role;
+        return given() // Dado
+                .contentType(ContentType.JSON)
+                .header("Authorization", token)
+                .log().all()
+                .when() // Quando
+                .post(url)
+                .then() // Então
+                .log()
+                .all()
+                .statusCode(400) // Extração do resultado
+                .extract().response();
+    }
+
+    public Response listarPessoasComSucesso() {
+        String url = baseUrl + "/listar";
+        return given() // Dado
+                .contentType(ContentType.JSON)
+                .header("Authorization", token)
+                .log().all()
+                .when() // Quando
+                .get(url)
+                .then() // Então
+                .log()
+                .all()
+                .statusCode(200) // Extração do resultado
+                .extract().response();
+    }
 }
