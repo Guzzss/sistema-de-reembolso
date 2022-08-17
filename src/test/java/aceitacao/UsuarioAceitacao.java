@@ -1,13 +1,12 @@
 package aceitacao;
 
+import aceitacao.dto.usuarioDTO.NovoUsuarioDTO;
 import aceitacao.dto.ResponseErroDTO;
-import aceitacao.dto.UsuarioDTO;
-import aceitacao.dto.UsuarioLogadoDTO;
+import aceitacao.dto.usuarioDTO.UsuarioLogadoDTO;
 import aceitacao.service.UsuarioService;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import utils.ImagemBase;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,11 +26,12 @@ public class UsuarioAceitacao {
     public void cadastroUsuarioComSucesso() throws IOException {
         String json = lerJson("src/test/resources/data/usuario.json");
 
-        UsuarioDTO resultService = usuarioService.cadastroUsuario(json);
-        Assert.assertEquals(resultService.getNome(), "Gustavo");
-        Assert.assertEquals(resultService.getEmail(), "seuemail100@dbccompany.com.br");
-        Assert.assertNotNull(resultService.getIdUsuario());
-        usuarioService.deleteUsuario(resultService.getIdUsuario());
+        NovoUsuarioDTO resultService = usuarioService.cadastroUsuario(json);
+        String token = resultService.getToken();
+        Assert.assertEquals(resultService.getRole(), "ROLE_COLABORADOR");
+        Assert.assertEquals(resultService.getToken(), token);
+//        usuarioService.deleteUsuario(resultService.getIdUsuario());
+
     }
 
     @Test
@@ -91,74 +91,55 @@ public class UsuarioAceitacao {
     }
 
     @Test
-    public void EditarUsuarioComSucesso() throws IOException {
-        String json = lerJson("src/test/resources/data/usuarioEditado.json");
-
-        UsuarioDTO resultService = usuarioService.editarUsuarioComSucesso(json);
-        Assert.assertEquals(resultService.getNome(), "GustavoEditado");
-        Assert.assertEquals(resultService.getEmail(), "tester@dbccompany.com.br");
-        Assert.assertNotNull(resultService.getIdUsuario());
-    }
-
-    @Test
-    public void EditarUsuarioComEmailExistente() throws IOException {
-        String json = lerJson("src/test/resources/data/UsuarioEditadoComEmailExistente.json");
-        Object status = 400;
-        Response resultService = usuarioService.editarUsuarioComEmailExistente(json);
-
-        Assert.assertEquals(resultService.getStatusCode(), status);
-    }
-
-    @Test
     public void getJogadorLogado() {
         UsuarioLogadoDTO resultService = usuarioService.getUsuarioLogado();
-        Assert.assertEquals(resultService.getNome(), "GustavoEditado");
-        Assert.assertEquals(resultService.getEmail(), "tester@dbccompany.com.br");
+        Assert.assertEquals(resultService.getNome(), "Gustavo");
+        Assert.assertEquals(resultService.getEmail(), "gustavo.teichmann@dbccompany.com.br");
         Assert.assertNotNull(resultService.getIdUsuario());
     }
 
     @Test
     public void deleteJogador() throws IOException {
-        UsuarioDTO usuarioDTO = addPessoaPeloJson();
+        NovoUsuarioDTO usuarioDTO = addPessoaPeloJson();
         Response resultService = usuarioService.deleteUsuario(usuarioDTO.getIdUsuario());
         Assert.assertEquals(resultService.getStatusCode(), 200);
     }
 
-    @Test
-    public void ativarUsuario() throws IOException {
-        UsuarioDTO usuarioDTO = addPessoaPeloJson();
-        Response resultService = usuarioService.ativarUsuario(usuarioDTO.getIdUsuario(), "ATIVAR");
-        Assert.assertEquals(resultService.getStatusCode(), 200);
-        usuarioService.deleteUsuario(usuarioDTO.getIdUsuario());
-    }
+//    @Test
+//    public void ativarUsuario() throws IOException {
+//        UsuarioDTO usuarioDTO = addPessoaPeloJson();
+//        Response resultService = usuarioService.ativarUsuario(usuarioDTO.getIdUsuario(), "ATIVAR");
+//        Assert.assertEquals(resultService.getStatusCode(), 200);
+//        usuarioService.deleteUsuario(usuarioDTO.getIdUsuario());
+//    }
 
-    @Test
-    public void ativarUsuarioComIdInexistente() throws IOException {
-        Response resultService = usuarioService.ativarUsuarioComIdInexistente(3434343, "ATIVAR");
-        Assert.assertEquals(resultService.getStatusCode(), 400);
-    }
+//    @Test
+//    public void ativarUsuarioComIdInexistente() throws IOException {
+//        Response resultService = usuarioService.ativarUsuarioComIdInexistente(3434343, "ATIVAR");
+//        Assert.assertEquals(resultService.getStatusCode(), 400);
+//    }
 
-    @Test
-    public void desativarUsuario() throws IOException {
-        UsuarioDTO usuarioDTO = addPessoaPeloJson();
-        Response resultService = usuarioService.desativarUsuario(usuarioDTO.getIdUsuario(), "DESATIVAR");
-        Assert.assertEquals(resultService.getStatusCode(), 200);
-        usuarioService.deleteUsuario(usuarioDTO.getIdUsuario());
-    }
+//    @Test
+//    public void desativarUsuario() throws IOException {
+//        UsuarioDTO usuarioDTO = addPessoaPeloJson();
+//        Response resultService = usuarioService.desativarUsuario(usuarioDTO.getIdUsuario(), "DESATIVAR");
+//        Assert.assertEquals(resultService.getStatusCode(), 200);
+//        usuarioService.deleteUsuario(usuarioDTO.getIdUsuario());
+//    }
 
-    @Test
-    public void desativarUsuarioComIdInexistente() {
-        Response resultService = usuarioService.desativarUsuarioComIdInexistente(3434343, "DESATIVAR");
-        Assert.assertEquals(resultService.getStatusCode(), 400);
-    }
+//    @Test
+//    public void desativarUsuarioComIdInexistente() {
+//        Response resultService = usuarioService.desativarUsuarioComIdInexistente(3434343, "DESATIVAR");
+//        Assert.assertEquals(resultService.getStatusCode(), 400);
+//    }
 
-    @Test
-    public void definirRoleComSucesso() throws IOException {
-        UsuarioDTO usuarioDTO = addPessoaPeloJson();
-        Response resultService = usuarioService.definirRoleComSucesso(usuarioDTO.getIdUsuario(), "GESTOR");
-        Assert.assertEquals(resultService.getStatusCode(), 200);
-        usuarioService.deleteUsuario(usuarioDTO.getIdUsuario());
-    }
+//    @Test
+//    public void definirRoleComSucesso() throws IOException {
+//        NovoUsuarioDTO usuarioDTO = addPessoaPeloJson();
+//        Response resultService = usuarioService.definirRoleComSucesso(usuarioDTO.getIdUsuario(), "GESTOR");
+//        Assert.assertEquals(resultService.getStatusCode(), 200);
+//        usuarioService.deleteUsuario(usuarioDTO.getIdUsuario());
+//    }
 
     @Test
     public void definirRoleComIdInexistente() {
@@ -173,9 +154,9 @@ public class UsuarioAceitacao {
         Assert.assertEquals(resultService.getStatusCode(), 200);
     }
 
-    public UsuarioDTO addPessoaPeloJson() throws IOException {
+    public NovoUsuarioDTO addPessoaPeloJson() throws IOException {
         String json = lerJson("src/test/resources/data/usuario.json");
-        UsuarioDTO resultService = usuarioService.cadastroUsuario(json);
+        NovoUsuarioDTO resultService = usuarioService.cadastroUsuario(json);
         return resultService;
     }
 

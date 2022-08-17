@@ -1,19 +1,18 @@
 package aceitacao.service;
 
+import aceitacao.dto.usuarioDTO.NovoUsuarioDTO;
 import aceitacao.dto.ResponseErroDTO;
-import aceitacao.dto.UsuarioDTO;
-import aceitacao.dto.UsuarioLogadoDTO;
+import aceitacao.dto.usuarioDTO.UsuarioLogadoDTO;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
 public class UsuarioService {
 
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/usuario";
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjcsInJvbGVzIjpbXSwiaWF0IjoxNjYwNDI1MTY1LCJleHAiOjE2NjA1MTE1NjV9.aGWaAT-u12au-7SzObS65eXHdhQA_NRuU8tSf8uZIoM";
-    public UsuarioDTO cadastroUsuario(String jsonBody) {
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQ09MQUJPUkFET1IiXSwiaWF0IjoxNjYwNjc4MDk1LCJleHAiOjE2NjA3NjQ0OTV9.0BXD_vpZNWUF-8W-Md1AR2jR_mTHMI3HGSkHkhPrm64";
+    public NovoUsuarioDTO cadastroUsuario(String jsonBody) {
         String url = baseUrl + "/cadastro";
         return given() // Dado
                 .contentType(ContentType.JSON)
@@ -25,7 +24,7 @@ public class UsuarioService {
                 .log()
                 .all()
                 .statusCode(200) // Extração do resultado
-                .extract().as(UsuarioDTO.class);
+                .extract().as(NovoUsuarioDTO.class);
     }
 
     public Response cadastroUsuarioComEmailExistente(String jsonBody) {
@@ -118,37 +117,6 @@ public class UsuarioService {
                 .extract().response();
     }
 
-    public UsuarioDTO editarUsuarioComSucesso(String jsonBody) {
-        String url = baseUrl + "/update";
-        return given() // Dado
-                .contentType(ContentType.JSON)
-                .header("Authorization", token)
-                .log().all()
-                .body(jsonBody)
-                .when() // Quando
-                .put(url)
-                .then() // Então
-                .log()
-                .all()
-                .statusCode(200) // Extração do resultado
-                .extract().as(UsuarioDTO.class);
-    }
-
-    public Response editarUsuarioComEmailExistente(String jsonBody) {
-        String url = baseUrl + "/update";
-        return given() // Dado
-                .contentType(ContentType.JSON)
-                .header("Authorization", token)
-                .log().all()
-                .body(jsonBody)
-                .when() // Quando
-                .put(url)
-                .then() // Então
-                .log()
-                .all()
-                .statusCode(400) // Extração do resultado
-                .extract().response();
-    }
 
     public UsuarioLogadoDTO getUsuarioLogado() {
         String url = baseUrl + "/logged";
@@ -180,66 +148,67 @@ public class UsuarioService {
                 .extract().response();
     }
 
-    public Response ativarUsuario(Integer idUsuario, String ATIVADO) {
-        String url = baseUrl + "/ativar-desativar-usuario" + "/" + idUsuario + "?ativarDesativarUsuario=" + ATIVADO;
-        return given() // Dado
-                .contentType(ContentType.JSON)
-                .header("Authorization", token)
-                .log().all()
-                .when() // Quando
-                .put(url)
-                .then() // Então
-                .log()
-                .all()
-                .statusCode(200) // Extração do resultado
-                .extract().response();
-    }
+//    public Response ativarUsuario(Integer idUsuario, String ATIVADO) {
+//        String url = baseUrl + "/ativar-desativar-usuario" + "/" + idUsuario + "?ativarDesativarUsuario=" + ATIVADO;
+//        return given() // Dado
+//                .contentType(ContentType.JSON)
+//                .header("Authorization", token)
+//                .log().all()
+//                .when() // Quando
+//                .put(url)
+//                .then() // Então
+//                .log()
+//                .all()
+//                .statusCode(200) // Extração do resultado
+//                .extract().response();
+//    }
 
-    public Response ativarUsuarioComIdInexistente(Integer idUsuario, String ATIVADO) {
-        String url = baseUrl + "/ativar-desativar-usuario" + "/" + idUsuario + "?ativarDesativarUsuario=" + ATIVADO;
-        return given() // Dado
-                .contentType(ContentType.JSON)
-                .header("Authorization", token)
-                .log().all()
-                .when() // Quando
-                .put(url)
-                .then() // Então
-                .log()
-                .all()
-                .statusCode(400) // Extração do resultado
-                .extract().response();
-    }
+//    public Response ativarUsuarioComIdInexistente(Integer idUsuario, String ATIVADO) {
+//        String url = baseUrl + "/ativar-desativar-usuario" + "/" + idUsuario + "?ativarDesativarUsuario=" + ATIVADO;
+//        return given() // Dado
+//                .contentType(ContentType.JSON)
+//                .header("Authorization", token)
+//                .log().all()
+//                .when() // Quando
+//                .put(url)
+//                .then() // Então
+//                .log()
+//                .all()
+//                .statusCode(400) // Extração do resultado
+//                .extract().response();
+//    }
 
-    public Response desativarUsuario(Integer idUsuario, String DESATIVADO) {
-        String url = baseUrl + "/ativar-desativar-usuario" + "/" + idUsuario + "?ativarDesativarUsuario=" + DESATIVADO;
-        return given() // Dado
-                .contentType(ContentType.JSON)
-                .header("Authorization", token)
-                .log().all()
-                .when() // Quando
-                .put(url)
-                .then() // Então
-                .log()
-                .all()
-                .statusCode(200) // Extração do resultado
-                .extract().response();
-    }
+//    public Response desativarUsuario(Integer idUsuario, String DESATIVADO) {
+//        String url = baseUrl + "/ativar-desativar-usuario" + "/" + idUsuario + "?ativarDesativarUsuario=" + DESATIVADO;
+//        return given() // Dado
+//                .contentType(ContentType.JSON)
+//                .header("Authorization", token)
+//                .log().all()
+//                .when() // Quando
+//                .put(url)
+//                .then() // Então
+//                .log()
+//                .all()
+//                .statusCode(200) // Extração do resultado
+//                .extract().response();
+//    }
 
-    public Response desativarUsuarioComIdInexistente(Integer idUsuario, String DESATIVADO) {
-        String url = baseUrl + "/ativar-desativar-usuario" + "/" + idUsuario + "?ativarDesativarUsuario=" + DESATIVADO;
-        return given() // Dado
-                .contentType(ContentType.JSON)
-                .header("Authorization", token)
-                .log().all()
-                .when() // Quando
-                .put(url)
-                .then() // Então
-                .log()
-                .all()
-                .statusCode(400) // Extração do resultado
-                .extract().response();
-    }
+//    public Response desativarUsuarioComIdInexistente(Integer idUsuario, String DESATIVADO) {
+//        String url = baseUrl + "/ativar-desativar-usuario" + "/" + idUsuario + "?ativarDesativarUsuario=" + DESATIVADO;
+//        return given() // Dado
+//                .contentType(ContentType.JSON)
+//                .header("Authorization", token)
+//                .log().all()
+//                .when() // Quando
+//                .put(url)
+//                .then() // Então
+//                .log()
+//                .all()
+//                .statusCode(400) // Extração do resultado
+//                .extract().response();
+//    }
 
+    //Todo vai ir para a AdminService
     public Response definirRoleComSucesso(Integer idUsuario, String role) {
         String url = baseUrl + "/role?idUsuario=" + idUsuario + "&role=" + role;
         return given() // Dado
@@ -255,6 +224,7 @@ public class UsuarioService {
                 .extract().response();
     }
 
+    //Todo vai ir para a AdminService
     public Response definirRoleComIdInexistente(Integer idUsuario, String role) {
         String url = baseUrl + "/role?idUsuario=" + idUsuario + "&role=" + role;
         return given() // Dado
