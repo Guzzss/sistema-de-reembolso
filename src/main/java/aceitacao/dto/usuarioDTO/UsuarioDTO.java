@@ -1,16 +1,15 @@
 package aceitacao.dto.usuarioDTO;
 
+import aceitacao.dto.FotoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @JsonIgnoreProperties
 public class UsuarioDTO {
-    private Integer idUsuario;
     private String nome;
     private String email;
-    private String senha;
-    private byte[] foto;
+    private Integer idUsuario;
+    private Double valorTotal;
+    private FotoDTO fotoDTO;
 }

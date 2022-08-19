@@ -1,16 +1,15 @@
-package aceitacao.dto;
+package aceitacao.dto.gestor;
 
+import aceitacao.dto.AnexoDTO;
 import aceitacao.dto.usuarioDTO.UsuarioReembolsoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.joda.time.DateTime;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @JsonIgnoreProperties
-public class ReembolsoDTO {
+public class GestorAprovarReembolsoDTO {
     private Integer idReembolso;
     private Date dataEntrada;
     private Date dataUltimaAlteracao;

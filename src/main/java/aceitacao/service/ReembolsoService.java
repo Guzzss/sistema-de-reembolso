@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 public class ReembolsoService {
 
     //esse token
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQ09MQUJPUkFET1IiXSwiaWF0IjoxNjYwNjc4MDk1LCJleHAiOjE2NjA3NjQ0OTV9.0BXD_vpZNWUF-8W-Md1AR2jR_mTHMI3HGSkHkhPrm64";
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNjYwODU4OTMyLCJleHAiOjE2NjA5NDUzMzJ9.7KbK2KKKj51rIijkfUuSPoZsqkJ7Rx1r9J6WDrXc_gA";
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/reembolso";
 
 
@@ -42,7 +42,7 @@ public class ReembolsoService {
                 .then() // Então
                 .log()
                 .all()
-                .statusCode(200) // Extração do resultado
+                .statusCode(400) // Extração do resultado
                 .extract().response();
     }
 
@@ -58,7 +58,7 @@ public class ReembolsoService {
                 .then() // Então
                 .log()
                 .all()
-                .statusCode(200) // Extração do resultado
+                .statusCode(400) // Extração do resultado
                 .extract().response();
     }
 
@@ -74,7 +74,7 @@ public class ReembolsoService {
                 .then() // Então
                 .log()
                 .all()
-                .statusCode(200) // Extração do resultado
+                .statusCode(202) // Extração do resultado
                 .extract().as(ReembolsoDTO.class);
     }
 
@@ -90,7 +90,7 @@ public class ReembolsoService {
                 .then() // Então
                 .log()
                 .all()
-                .statusCode(200) // Extração do resultado
+                .statusCode(400) // Extração do resultado
                 .extract().response();
     }
 
@@ -106,12 +106,12 @@ public class ReembolsoService {
                 .then() // Então
                 .log()
                 .all()
-                .statusCode(200) // Extração do resultado
+                .statusCode(400) // Extração do resultado
                 .extract().response();
     }
 
-    public Response deletarReembolsoComSucesso(Integer idReembolso) {
-        String url = baseUrl + "/logged/delete/" + idReembolso;
+    public Response deletarReembolsoComSucesso(Integer idReembolso, Integer pagina, Integer registros) {
+        String url = baseUrl + "/logged/delete/" + idReembolso + "?pagina=" + pagina + "&quantidadeDeRegistros=" + registros;
         return given() // Dado
                 .contentType(ContentType.JSON)
                 .header("Authorization", token)
@@ -166,6 +166,48 @@ public class ReembolsoService {
                 .all()
                 .statusCode(200) // Extração do resultado
                 .extract().as(PageReembolsoDTO.class);
+    }
+
+    public PageReembolsoDTO listarReembolsoPorNomeEStatusComSucesso(String nome, String statusReembolso, Integer paginas, Integer registros) {
+        String url = baseUrl + "/list/nome/status?nome=" + nome + "&statusReembolso=" + statusReembolso + "&pagina=" + paginas + "&quantidadeDeRegistros=" + registros;
+        return given() // Dado
+                .contentType(ContentType.JSON)
+                .header("Authorization", token)
+                .when() // Quando
+                .get(url)
+                .then() // Então
+                .log()
+                .all()
+                .statusCode(200) // Extração do resultado
+                .extract().as(PageReembolsoDTO.class);
+    }
+
+    public ReembolsoDTO getReembolsoByIdComSucesso(Integer idReembolso) {
+        String url = baseUrl + idReembolso;
+        return given() // Dado
+                .contentType(ContentType.JSON)
+                .header("Authorization", token)
+                .when() // Quando
+                .get(url)
+                .then() // Então
+                .log()
+                .all()
+                .statusCode(200) // Extração do resultado
+                .extract().as(ReembolsoDTO.class);
+    }
+
+    public Response getReembolsoByIdComIdInexistente(Integer idReembolso) {
+        String url = baseUrl + idReembolso;
+        return given() // Dado
+                .contentType(ContentType.JSON)
+                .header("Authorization", token)
+                .when() // Quando
+                .get(url)
+                .then() // Então
+                .log()
+                .all()
+                .statusCode(404) // Extração do resultado
+                .extract().response();
     }
 }
 
