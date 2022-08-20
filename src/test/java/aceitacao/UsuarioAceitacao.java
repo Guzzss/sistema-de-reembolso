@@ -134,8 +134,7 @@ public class UsuarioAceitacao {
         jsonObject.put("email", faker.name().firstName().toLowerCase() + "@dbccompany.com.br");
         jsonObject.put("senha", faker.internet().password(8, 16, true, true)+"#");
 
-        NovoUsuarioDTO resultService = usuarioService.cadastroUsuario(jsonObject.toString());
-        return resultService;
+        return usuarioService.cadastroUsuario(jsonObject.toString());
     }
 }
 

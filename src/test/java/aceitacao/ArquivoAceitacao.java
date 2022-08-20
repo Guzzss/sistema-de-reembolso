@@ -1,7 +1,9 @@
 package aceitacao;
 
+import aceitacao.dto.ReembolsoDTO;
 import aceitacao.dto.usuarioDTO.NovoUsuarioDTO;
 import aceitacao.service.ArquivoService;
+import aceitacao.service.ReembolsoService;
 import aceitacao.service.UsuarioService;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -14,7 +16,9 @@ public class ArquivoAceitacao {
     ArquivoService arquivoService = new ArquivoService();
     UsuarioAceitacao usuarioAceitacao = new UsuarioAceitacao();
     UsuarioService usuarioService = new UsuarioService();
+    ReembolsoAceitacao reembolsoAceitacao = new ReembolsoAceitacao();
 
+    ReembolsoService reembolsoService = new ReembolsoService();
     @Test
     public void fileUpdate() throws IOException {
         NovoUsuarioDTO usuario = usuarioAceitacao.addPessoaPeloJson();
@@ -25,9 +29,9 @@ public class ArquivoAceitacao {
 
     @Test
     public void anexoUpdate() throws IOException {
-        NovoUsuarioDTO usuario = usuarioAceitacao.addPessoaPeloJson();
-        Response arquivo = arquivoService.updateAnexo(usuario.getIdUsuario());
+        ReembolsoDTO reembolsoDTO = reembolsoAceitacao.addReembolso();
+        Response arquivo = arquivoService.updateAnexo(reembolsoDTO.getIdReembolso(), reembolsoDTO.getUsuario().getIdUsuario());
         Assert.assertEquals(arquivo.getStatusCode(), HttpStatus.SC_OK);
-        usuarioService.deleteUsuario(usuario.getIdUsuario());
+        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(),reembolsoDTO.getUsuario().getIdUsuario());
     }
 }

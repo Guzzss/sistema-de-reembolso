@@ -26,13 +26,13 @@ public class GestorAceitacao {
         Assert.assertEquals(resultService.getTitulo(), reembolsoDTO.getTitulo());
         Assert.assertEquals(resultService.getAnexoDTO(), reembolsoDTO.getAnexoDTO());
         Assert.assertEquals(resultService.getUsuario(), reembolsoDTO.getUsuario());
-        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), 0, 5);
+        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), reembolsoDTO.getUsuario().getIdUsuario());
     }
 
     @Test
     public void aprovarReembolsoComIdInexistente() {
         Response resultService =  gestorService.avaliarReembolsoComIdInexistente(343434343, "true");
-        Assert.assertEquals(resultService.getStatusCode(), 400);
+        Assert.assertEquals(resultService.getStatusCode(), 404);
     }
 
     @Test
@@ -44,13 +44,12 @@ public class GestorAceitacao {
         Assert.assertEquals(resultService.getValor(), reembolsoDTO.getValor());
         Assert.assertEquals(resultService.getTitulo(), reembolsoDTO.getTitulo());
         Assert.assertEquals(resultService.getAnexoDTO(), reembolsoDTO.getAnexoDTO());
-        Assert.assertEquals(resultService.getUsuario(), reembolsoDTO.getUsuario());
-        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(),0 , 5);
+        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(),reembolsoDTO.getUsuario().getIdUsuario());
     }
 
     @Test
     public void reprovarReembolsoComIdInexistente() {
         Response resultService =  gestorService.avaliarReembolsoComIdInexistente(343434343, "false");
-        Assert.assertEquals(resultService.getStatusCode(), 400);
+        Assert.assertEquals(resultService.getStatusCode(), 404);
     }
 }

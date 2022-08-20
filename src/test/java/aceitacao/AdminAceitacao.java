@@ -95,7 +95,7 @@ public class AdminAceitacao {
     @Test
     public void definirRoleComIdInexistente() {
         Response resultService = adminService.definirRoleComIdInexistente(5467575, "GESTOR");
-        Assert.assertEquals(resultService.getStatusCode(), 400);
+        Assert.assertEquals(resultService.getStatusCode(), 404);
     }
 
  }

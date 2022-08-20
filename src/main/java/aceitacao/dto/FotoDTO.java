@@ -9,8 +9,8 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties
 public class FotoDTO {
-    private Integer idArquivos;
+    private Integer idFotos;
     private String nome;
     private String tipo;
-    private List<String> data;
+    private Byte[] data;
 }

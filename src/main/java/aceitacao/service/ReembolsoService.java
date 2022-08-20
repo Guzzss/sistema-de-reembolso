@@ -10,7 +10,8 @@ import static io.restassured.RestAssured.given;
 public class ReembolsoService {
 
     //esse token
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNjYwODU4OTMyLCJleHAiOjE2NjA5NDUzMzJ9.7KbK2KKKj51rIijkfUuSPoZsqkJ7Rx1r9J6WDrXc_gA";
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQ09MQUJPUkFET1IiXSwiaWF0IjoxNjYxMDI1MTE5LCJleHAiOjE2NjExMTE1MTl9.9rFcjcaR_zPYwDZjhv2Fty6ugz7dRa-H6gzWAWqqB0g";
+    String tokenAdm = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjI0LCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY2MTAyNDY3NywiZXhwIjoxNjYxMTExMDc3fQ.pyJw8e7QdvL-U9LjQqkc6KJXooZjRbI588D2OIWh95k";
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/reembolso";
 
 
@@ -62,11 +63,11 @@ public class ReembolsoService {
                 .extract().response();
     }
 
-    public ReembolsoDTO editarReembolsoComSucesso(Integer idReembolso, String jsonBody) {
-        String url = baseUrl + "/logged/update/" + idReembolso;
+    public ReembolsoDTO editarReembolsoComSucesso(Integer idReembolso, Integer idUsuario, String jsonBody) {
+        String url = baseUrl + "/update/" + idReembolso + "/usuario/" + idUsuario;
         return given() // Dado
                 .contentType(ContentType.JSON)
-                .header("Authorization", token)
+                .header("Authorization", tokenAdm)
                 .log().all()
                 .body(jsonBody)
                 .when() // Quando
@@ -78,11 +79,11 @@ public class ReembolsoService {
                 .extract().as(ReembolsoDTO.class);
     }
 
-    public Response editarReembolsoSemPassarValor(Integer idReembolso, String jsonBody) {
-        String url = baseUrl + "/logged/update/" + idReembolso;
+    public Response editarReembolsoSemPassarValor(Integer idReembolso, Integer idUsuario, String jsonBody) {
+        String url = baseUrl + "/update/" + idReembolso + "/usuario/" + idUsuario;
         return given() // Dado
                 .contentType(ContentType.JSON)
-                .header("Authorization", token)
+                .header("Authorization", tokenAdm)
                 .log().all()
                 .body(jsonBody)
                 .when() // Quando
@@ -94,11 +95,11 @@ public class ReembolsoService {
                 .extract().response();
     }
 
-    public Response editarReembolsoSemPassarTitulo(Integer idReembolso, String jsonBody) {
-        String url = baseUrl + "/logged/update/" + idReembolso;
+    public Response editarReembolsoSemPassarTitulo(Integer idReembolso, Integer idUsuario, String jsonBody) {
+        String url = baseUrl + "/update/" + idReembolso + "/usuario/" + idUsuario;
         return given() // Dado
                 .contentType(ContentType.JSON)
-                .header("Authorization", token)
+                .header("Authorization", tokenAdm)
                 .log().all()
                 .body(jsonBody)
                 .when() // Quando
@@ -110,11 +111,11 @@ public class ReembolsoService {
                 .extract().response();
     }
 
-    public Response deletarReembolsoComSucesso(Integer idReembolso, Integer pagina, Integer registros) {
-        String url = baseUrl + "/logged/delete/" + idReembolso + "?pagina=" + pagina + "&quantidadeDeRegistros=" + registros;
+    public Response deletarReembolsoComSucesso(Integer idReembolso, Integer idUsuario) {
+        String url = baseUrl + "/delete/" + idReembolso + "/usuario/" + idUsuario;
         return given() // Dado
                 .contentType(ContentType.JSON)
-                .header("Authorization", token)
+                .header("Authorization", tokenAdm)
                 .log().all()
                 .when() // Quando
                 .delete(url)
@@ -125,18 +126,18 @@ public class ReembolsoService {
                 .extract().response();
     }
 
-    public Response deletarReembolsoComIdInexistente(Integer idReembolso) {
-        String url = baseUrl + "/logged/delete/" + idReembolso;
+    public Response deletarReembolsoComIdInexistente(Integer idReembolso, Integer idUsuario) {
+        String url = baseUrl + "/delete/" + idReembolso + "usuario/" + idUsuario;
         return given() // Dado
                 .contentType(ContentType.JSON)
-                .header("Authorization", token)
+                .header("Authorization", tokenAdm)
                 .log().all()
                 .when() // Quando
                 .delete(url)
                 .then() // Então
                 .log()
                 .all()
-                .statusCode(400) // Extração do resultado
+                .statusCode(404) // Extração do resultado
                 .extract().response();
     }
 
@@ -158,7 +159,7 @@ public class ReembolsoService {
         String url = baseUrl + "/list/status?statusReembolso=" + statusReembolso + "&pagina=" + paginas + "&quantidadeDeRegistros=" + registros;
         return given() // Dado
                 .contentType(ContentType.JSON)
-                .header("Authorization", token)
+                .header("Authorization", tokenAdm)
                 .when() // Quando
                 .get(url)
                 .then() // Então
@@ -172,7 +173,7 @@ public class ReembolsoService {
         String url = baseUrl + "/list/nome/status?nome=" + nome + "&statusReembolso=" + statusReembolso + "&pagina=" + paginas + "&quantidadeDeRegistros=" + registros;
         return given() // Dado
                 .contentType(ContentType.JSON)
-                .header("Authorization", token)
+                .header("Authorization", tokenAdm)
                 .when() // Quando
                 .get(url)
                 .then() // Então
@@ -183,7 +184,7 @@ public class ReembolsoService {
     }
 
     public ReembolsoDTO getReembolsoByIdComSucesso(Integer idReembolso) {
-        String url = baseUrl + idReembolso;
+        String url = baseUrl + "/" + idReembolso;
         return given() // Dado
                 .contentType(ContentType.JSON)
                 .header("Authorization", token)

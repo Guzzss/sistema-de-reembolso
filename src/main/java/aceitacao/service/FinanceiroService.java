@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 public class FinanceiroService {
 
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/financeiro";
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNjYwODU4OTMyLCJleHAiOjE2NjA5NDUzMzJ9.7KbK2KKKj51rIijkfUuSPoZsqkJ7Rx1r9J6WDrXc_gA";
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjcwLCJyb2xlcyI6WyJST0xFX0ZJTkFOQ0VJUk8iXSwiaWF0IjoxNjYxMDI2NzU0LCJleHAiOjE2NjExMTMxNTR9.FIbskJzNJrpt49JzxnVB6YHfYORrvy9JEo0lNmCwrAI";
 
     public FinanceiroPagarDTO pagarFinanceiroComSucesso(Integer idReembolso, String statusPagamento) {
         String url = baseUrl + "/pagar/" + idReembolso + "?pagar="+ statusPagamento;
@@ -37,7 +37,7 @@ public class FinanceiroService {
                 .then() // Então
                 .log()
                 .all()
-                .statusCode(400) // Extração do resultado
+                .statusCode(404) // Extração do resultado
                 .extract().response();
     }
 }

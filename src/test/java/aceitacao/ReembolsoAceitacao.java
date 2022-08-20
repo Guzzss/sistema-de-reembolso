@@ -1,6 +1,6 @@
 package aceitacao;
 
-import aceitacao.dto.AnexoDTO;
+
 import aceitacao.dto.PageReembolsoDTO;
 import aceitacao.dto.ReembolsoDTO;
 import aceitacao.service.ReembolsoService;
@@ -32,7 +32,7 @@ public class ReembolsoAceitacao {
         Assert.assertEquals(resultService.getUsuario().getIdUsuario(), Integer.valueOf(6));
         Assert.assertEquals(resultService.getUsuario().getNome(), "Gustavo");
         Assert.assertEquals(resultService.getUsuario().getEmail(), "gustavo.teichmann@dbccompany.com.br");
-        reembolsoService.deletarReembolsoComSucesso(resultService.getIdReembolso(), 0, 5);
+        reembolsoService.deletarReembolsoComSucesso(resultService.getIdReembolso(), resultService.getUsuario().getIdUsuario());
     }
 
     @Test
@@ -53,41 +53,41 @@ public class ReembolsoAceitacao {
     public void editarReembolsoComSucesso() throws IOException {
         String json = lerJson("src/test/resources/data/reembolsoJsons/ReembolsoEditado.json");
         ReembolsoDTO reembolsoDTO = addReembolso();
-        ReembolsoDTO resultService = reembolsoService.editarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), json);
+        ReembolsoDTO resultService = reembolsoService.editarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), reembolsoDTO.getUsuario().getIdUsuario(), json);
         Assert.assertEquals(resultService.getTitulo(), "Transporte para reunião com um novo cliente");
         Assert.assertEquals(resultService.getValor(), Double.valueOf(100));
-        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), 0, 5);
+        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), reembolsoDTO.getUsuario().getIdUsuario());
     }
 
     @Test
     public void editarReembolsoSemPassarValor() throws IOException {
         String json = lerJson("src/test/resources/data/reembolsoJsons/ReembolsoSemValor.json");
         ReembolsoDTO reembolsoDTO = addReembolso();
-        Response resultService = reembolsoService.editarReembolsoSemPassarValor(reembolsoDTO.getIdReembolso(), json);
+        Response resultService = reembolsoService.editarReembolsoSemPassarValor(reembolsoDTO.getIdReembolso(),reembolsoDTO.getUsuario().getIdUsuario(), json);
         Assert.assertEquals(resultService.getStatusCode(), 400);
-        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), 0, 5);
+        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), reembolsoDTO.getUsuario().getIdUsuario());
     }
 
     @Test
     public void editarReembolsoSemPassarTitulo() throws IOException {
         String json = lerJson("src/test/resources/data/reembolsoJsons/ReembolsoSemTitulo.json");
         ReembolsoDTO reembolsoDTO = addReembolso();
-        Response resultService = reembolsoService.editarReembolsoSemPassarTitulo(reembolsoDTO.getIdReembolso(), json);
+        Response resultService = reembolsoService.editarReembolsoSemPassarTitulo(reembolsoDTO.getIdReembolso(),reembolsoDTO.getUsuario().getIdUsuario(),json);
         Assert.assertEquals(resultService.getStatusCode(), 400);
-        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), 0, 5);
+        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), reembolsoDTO.getUsuario().getIdUsuario());
     }
 
     @Test
     public void deletarReembolsoComSucesso() throws IOException {
         ReembolsoDTO reembolsoDTO = addReembolso();
-        Response resultService = reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), 0, 5);
+        Response resultService = reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), reembolsoDTO.getUsuario().getIdUsuario());
         Assert.assertEquals(resultService.getStatusCode(), HttpStatus.SC_OK);
     }
 
     @Test
     public void deletarReembolsoComIdInexistente() {
-        Response resultService = reembolsoService.deletarReembolsoComIdInexistente(777777777);
-        Assert.assertEquals(resultService.getStatusCode(), 400);
+        Response resultService = reembolsoService.deletarReembolsoComIdInexistente(77777777, 333);
+        Assert.assertEquals(resultService.getStatusCode(), 404);
     }
 
     @Test
@@ -118,7 +118,7 @@ public class ReembolsoAceitacao {
     public void getReembolsoById() throws IOException {
         ReembolsoDTO reembolsoDTO = addReembolso();
         ReembolsoDTO resultService = reembolsoService.getReembolsoByIdComSucesso(reembolsoDTO.getIdReembolso());
-        reembolsoService.deletarReembolsoComSucesso(resultService.getIdReembolso(), 0, 5);
+        reembolsoService.deletarReembolsoComSucesso(resultService.getIdReembolso(), resultService.getUsuario().getIdUsuario());
     }
 
     @Test

@@ -10,14 +10,14 @@ import static io.restassured.RestAssured.given;
 public class ArquivoService {
 
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/upload";
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNjYwODU4OTMyLCJleHAiOjE2NjA5NDUzMzJ9.7KbK2KKKj51rIijkfUuSPoZsqkJ7Rx1r9J6WDrXc_gA";
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjI0LCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY2MTAyNDY3NywiZXhwIjoxNjYxMTExMDc3fQ.pyJw8e7QdvL-U9LjQqkc6KJXooZjRbI588D2OIWh95k";
 
     public Response updateFile(Integer idUsuario){
         String url = baseUrl + "/foto";
         Response res = given()
                 .header("Authorization", token)
                 .header(new Header("content-type", "multipart/form-data"))
-                .multiPart(new File("src/test/resources/Regina.jpg"))
+                .multiPart("file", new File("src/test/resources/Regina.png"), "image/png")
                 .log().all()
                 .when()
                 .post(url)
@@ -26,13 +26,12 @@ public class ArquivoService {
                 .extract().response();
         return res;
     }
-    public Response updateAnexo(Integer idReembolso){
-        String url = baseUrl + "/anexo?idReembolso=" + idReembolso;
+    public Response updateAnexo(Integer idReembolso, Integer idUsuario){
+        String url = baseUrl + "/anexo/reembolso/usuario?idReembolso=" + idReembolso + "&idUsuario=" + idUsuario;
         Response res = given()
                 .header("Authorization", token)
                 .header(new Header("content-type", "multipart/form-data"))
-                .multiPart(new File("src/test/resources/Regina.jpg"))
-                .log().all()
+                .multiPart("file", new File("src/test/resources/Regina.png"), "image/png")
                 .when()
                 .post(url)
                 .then()

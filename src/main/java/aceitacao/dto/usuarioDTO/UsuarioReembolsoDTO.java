@@ -8,5 +8,6 @@ import lombok.Data;
 public class UsuarioReembolsoDTO {
     private Integer idUsuario;
     private String nome;
+    private Double valorTotal;
     private String email;
 }

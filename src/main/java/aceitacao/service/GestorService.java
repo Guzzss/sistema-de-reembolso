@@ -11,8 +11,7 @@ public class GestorService {
 
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/gestor";
 
-    //todo add token de gestor
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNjYwODU4OTMyLCJleHAiOjE2NjA5NDUzMzJ9.7KbK2KKKj51rIijkfUuSPoZsqkJ7Rx1r9J6WDrXc_gA";
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjY5LCJyb2xlcyI6WyJST0xFX0dFU1RPUiJdLCJpYXQiOjE2NjEwMjY0NjEsImV4cCI6MTY2MTExMjg2MX0.t_mwnRr8kBSgbGLxt-Rp9ALDG3qnlzV9880XzbS5I9E";
 
     public GestorAprovarReembolsoDTO avaliarReembolsoComSucesso(Integer idReembolso, String status) {
         String url = baseUrl + "/aprovar/" + idReembolso +"?aprovado=" + status;
@@ -40,7 +39,7 @@ public class GestorService {
                 .then() // Então
                 .log()
                 .all()
-                .statusCode(400) // Extração do resultado
+                .statusCode(404) // Extração do resultado
                 .extract().response();
     }
 
