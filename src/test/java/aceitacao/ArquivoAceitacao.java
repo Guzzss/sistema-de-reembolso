@@ -1,7 +1,7 @@
 package aceitacao;
 
-import aceitacao.dto.ReembolsoDTO;
-import aceitacao.dto.usuarioDTO.NovoUsuarioDTO;
+import aceitacao.dto.reembolso.ReembolsoDTO;
+import aceitacao.dto.usuario.NovoUsuarioDTO;
 import aceitacao.service.ArquivoService;
 import aceitacao.service.ReembolsoService;
 import aceitacao.service.UsuarioService;

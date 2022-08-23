@@ -1,7 +1,6 @@
 package aceitacao.service;
 
-import aceitacao.dto.usuarioDTO.NovoUsuarioDTO;
-import aceitacao.dto.usuarioDTO.UsuarioDTO;
+import aceitacao.dto.usuario.UsuarioDTO;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -10,7 +9,7 @@ import static io.restassured.RestAssured.given;
 public class AdminService {
 
 
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjI0LCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY2MTAyNDY3NywiZXhwIjoxNjYxMTExMDc3fQ.pyJw8e7QdvL-U9LjQqkc6KJXooZjRbI588D2OIWh95k";
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjI0LCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY2MTIxOTkxNSwiZXhwIjoxNjYxNDc5MTE1fQ.UwLYppO3ewfXGXhGzXkRrFKme7TOnAzzk5pRQPG0ezM";
 
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/admin";
 

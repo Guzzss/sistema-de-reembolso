@@ -1,8 +1,8 @@
 package aceitacao;
 
 
-import aceitacao.dto.PageReembolsoDTO;
-import aceitacao.dto.ReembolsoDTO;
+import aceitacao.dto.reembolso.PageReembolsoDTO;
+import aceitacao.dto.reembolso.ReembolsoDTO;
 import aceitacao.service.ReembolsoService;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;

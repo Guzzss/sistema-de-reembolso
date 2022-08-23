@@ -1,16 +1,13 @@
-package aceitacao.dto;
-
+package aceitacao.dto.arquivos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 @JsonIgnoreProperties
-public class FotoDTO {
-    private Integer idFotos;
+public class AnexoDTO {
+    private Integer idAnexo;
     private String nome;
     private String tipo;
-    private Byte[] data;
+    private byte[] data;
 }

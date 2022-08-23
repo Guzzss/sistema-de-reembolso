@@ -1,7 +1,7 @@
 package aceitacao.service;
 
-import aceitacao.dto.PageReembolsoDTO;
-import aceitacao.dto.ReembolsoDTO;
+import aceitacao.dto.reembolso.PageReembolsoDTO;
+import aceitacao.dto.reembolso.ReembolsoDTO;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -10,8 +10,8 @@ import static io.restassured.RestAssured.given;
 public class ReembolsoService {
 
     //esse token
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQ09MQUJPUkFET1IiXSwiaWF0IjoxNjYxMDI1MTE5LCJleHAiOjE2NjExMTE1MTl9.9rFcjcaR_zPYwDZjhv2Fty6ugz7dRa-H6gzWAWqqB0g";
-    String tokenAdm = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjI0LCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY2MTAyNDY3NywiZXhwIjoxNjYxMTExMDc3fQ.pyJw8e7QdvL-U9LjQqkc6KJXooZjRbI588D2OIWh95k";
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQ09MQUJPUkFET1IiXSwiaWF0IjoxNjYxMjE5Njg4LCJleHAiOjE2NjE0Nzg4ODh9._heAVNI4M3KSURdCD0niTMUPZyohoRFTcOh1oH57y9w";
+    String tokenAdm = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjI0LCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY2MTIxOTkxNSwiZXhwIjoxNjYxNDc5MTE1fQ.UwLYppO3ewfXGXhGzXkRrFKme7TOnAzzk5pRQPG0ezM";
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/reembolso";
 
 

@@ -1,11 +1,10 @@
-package aceitacao.dto;
+package aceitacao.dto.reembolso;
 
-import aceitacao.dto.usuarioDTO.UsuarioReembolsoDTO;
+import aceitacao.dto.arquivos.AnexoDTO;
+import aceitacao.dto.usuario.UsuarioReembolsoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.joda.time.DateTime;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data

@@ -1,9 +1,9 @@
 package aceitacao;
 
-import aceitacao.dto.usuarioDTO.NovoUsuarioDTO;
+import aceitacao.dto.usuario.NovoUsuarioDTO;
 import aceitacao.dto.ResponseErroDTO;
-import aceitacao.dto.usuarioDTO.PageUsuarioDTO;
-import aceitacao.dto.usuarioDTO.UsuarioDTO;
+import aceitacao.dto.usuario.PageUsuarioDTO;
+import aceitacao.dto.usuario.UsuarioDTO;
 import aceitacao.service.UsuarioService;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;

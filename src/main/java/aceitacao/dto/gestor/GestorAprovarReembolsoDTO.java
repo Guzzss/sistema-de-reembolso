@@ -1,7 +1,7 @@
 package aceitacao.dto.gestor;
 
-import aceitacao.dto.AnexoDTO;
-import aceitacao.dto.usuarioDTO.UsuarioReembolsoDTO;
+import aceitacao.dto.arquivos.AnexoDTO;
+import aceitacao.dto.usuario.UsuarioReembolsoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 

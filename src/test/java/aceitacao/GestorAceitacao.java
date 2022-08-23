@@ -1,6 +1,6 @@
 package aceitacao;
 
-import aceitacao.dto.ReembolsoDTO;
+import aceitacao.dto.reembolso.ReembolsoDTO;
 import aceitacao.dto.gestor.GestorAprovarReembolsoDTO;
 import aceitacao.service.GestorService;
 import aceitacao.service.ReembolsoService;
@@ -26,7 +26,6 @@ public class GestorAceitacao {
         Assert.assertEquals(resultService.getTitulo(), reembolsoDTO.getTitulo());
         Assert.assertEquals(resultService.getAnexoDTO(), reembolsoDTO.getAnexoDTO());
         Assert.assertEquals(resultService.getUsuario(), reembolsoDTO.getUsuario());
-        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(), reembolsoDTO.getUsuario().getIdUsuario());
     }
 
     @Test
@@ -44,7 +43,6 @@ public class GestorAceitacao {
         Assert.assertEquals(resultService.getValor(), reembolsoDTO.getValor());
         Assert.assertEquals(resultService.getTitulo(), reembolsoDTO.getTitulo());
         Assert.assertEquals(resultService.getAnexoDTO(), reembolsoDTO.getAnexoDTO());
-        reembolsoService.deletarReembolsoComSucesso(reembolsoDTO.getIdReembolso(),reembolsoDTO.getUsuario().getIdUsuario());
     }
 
     @Test

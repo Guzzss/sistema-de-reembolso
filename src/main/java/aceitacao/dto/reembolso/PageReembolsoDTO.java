@@ -1,4 +1,4 @@
-package aceitacao.dto;
+package aceitacao.dto.reembolso;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

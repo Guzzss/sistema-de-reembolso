@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 public class ArquivoService {
 
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/upload";
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjI0LCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY2MTAyNDY3NywiZXhwIjoxNjYxMTExMDc3fQ.pyJw8e7QdvL-U9LjQqkc6KJXooZjRbI588D2OIWh95k";
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQ09MQUJPUkFET1IiXSwiaWF0IjoxNjYxMjE5Njg4LCJleHAiOjE2NjE0Nzg4ODh9._heAVNI4M3KSURdCD0niTMUPZyohoRFTcOh1oH57y9w";
 
     public Response updateFile(Integer idUsuario){
         String url = baseUrl + "/foto";

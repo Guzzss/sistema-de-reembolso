@@ -1,9 +1,9 @@
 package aceitacao.service;
 
-import aceitacao.dto.usuarioDTO.NovoUsuarioDTO;
+import aceitacao.dto.usuario.NovoUsuarioDTO;
 import aceitacao.dto.ResponseErroDTO;
-import aceitacao.dto.usuarioDTO.PageUsuarioDTO;
-import aceitacao.dto.usuarioDTO.UsuarioDTO;
+import aceitacao.dto.usuario.PageUsuarioDTO;
+import aceitacao.dto.usuario.UsuarioDTO;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -12,8 +12,8 @@ import static io.restassured.RestAssured.given;
 public class UsuarioService {
 
     String baseUrl = "https://sistema-de-reembolso-dev.herokuapp.com/usuario";
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQ09MQUJPUkFET1IiXSwiaWF0IjoxNjYxMDI1MTE5LCJleHAiOjE2NjExMTE1MTl9.9rFcjcaR_zPYwDZjhv2Fty6ugz7dRa-H6gzWAWqqB0g";
-    String tokenAdm = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjI0LCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY2MTAyNDY3NywiZXhwIjoxNjYxMTExMDc3fQ.pyJw8e7QdvL-U9LjQqkc6KJXooZjRbI588D2OIWh95k";
+    String token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjYsInJvbGVzIjpbIlJPTEVfQ09MQUJPUkFET1IiXSwiaWF0IjoxNjYxMjE5Njg4LCJleHAiOjE2NjE0Nzg4ODh9._heAVNI4M3KSURdCD0niTMUPZyohoRFTcOh1oH57y9w";
+    String tokenAdm = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaXN0ZW1hLWRlLXJlZW1ib2xzby1hcGkiLCJqdGkiOjI0LCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY2MTIxOTkxNSwiZXhwIjoxNjYxNDc5MTE1fQ.UwLYppO3ewfXGXhGzXkRrFKme7TOnAzzk5pRQPG0ezM";
 
     public NovoUsuarioDTO cadastroUsuario(String jsonBody) {
         String url = baseUrl + "/cadastro";
